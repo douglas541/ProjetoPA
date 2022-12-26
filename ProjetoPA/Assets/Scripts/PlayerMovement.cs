@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerRigidBody.freezeRotation = true;
         HorizontalMovement();
     }
 
