@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     public Rigidbody2D playerRigidBody;
     public float movementSpeed = 5;
+    private float jumpSpeed = 10;
 
     void Start()
     {
@@ -17,15 +18,20 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         playerRigidBody.freezeRotation = true;
+        VerticalMovement();
         HorizontalMovement();
     }
 
-    void HorizontalMovement () {
-        if(Input.GetKey(KeyCode.RightArrow)) {
-            transform.position += Vector3.right * movementSpeed * Time.deltaTime;
+    void VerticalMovement() {
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) {
+            playerRigidBody.velocity = Vector2.up * jumpSpeed;
         }
-        if(Input.GetKey(KeyCode.LeftArrow)) {
-            transform.position += Vector3.left * movementSpeed * Time.deltaTime;
+    }
+
+    void HorizontalMovement () {
+        if(Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Horizontal") == 1) {
+            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+            transform.position += movement * Time.deltaTime * movementSpeed;
         }
     }
 }

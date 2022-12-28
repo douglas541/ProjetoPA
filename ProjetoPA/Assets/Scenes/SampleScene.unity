@@ -338,7 +338,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.6, y: 3.5}
+  m_Size: {x: 9.57, y: 3.5}
   m_EdgeRadius: 0
 --- !u!61 &1024303555
 BoxCollider2D:
@@ -428,12 +428,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1583194947, guid: 977300048619afa2983c91987a93eff2, type: 3}
+  m_Sprite: {fileID: 71277797, guid: 916ed1a45ebd08e42a1867a92477b8f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.21, y: 0.38}
+  m_Size: {x: 0.19, y: 0.37}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -464,7 +464,7 @@ Animator:
   m_GameObject: {fileID: 1236022753}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0b5e4e23a0268094e9b49b4548c1c4fd, type: 2}
+  m_Controller: {fileID: 9100000, guid: abd32a3e111818e40aab47258f6d620e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -489,7 +489,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -523,5 +523,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.16, y: 0.38}
+  m_Size: {x: 0.16, y: 0.35}
   m_Direction: 0
