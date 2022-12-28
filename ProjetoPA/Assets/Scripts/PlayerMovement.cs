@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,11 +20,14 @@ public class PlayerMovement : MonoBehaviour
         HorizontalMovement();
     }
 
-    void HorizontalMovement () {
-        if(Input.GetKey(KeyCode.RightArrow)) {
+    void HorizontalMovement()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
             transform.position += Vector3.right * movementSpeed * Time.deltaTime;
         }
-        if(Input.GetKey(KeyCode.LeftArrow)) {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
             transform.position += Vector3.left * movementSpeed * Time.deltaTime;
         }
     }
