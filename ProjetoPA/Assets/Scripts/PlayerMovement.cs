@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Rigidbody2D playerRigidBody;
-    public Rigidbody2D enemyRigidBody;
-    public float movementSpeed = 6;
+    [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private Rigidbody2D playerRigidBody;
+    [SerializeField] private CapsuleCollider2D playerCollider;
+    [SerializeField] private Rigidbody2D enemyRigidBody;
+    private float movementSpeed = 6;
     private float jumpSpeed = 10;
     List<RaycastHit2D> results = new List<RaycastHit2D>();
     ContactFilter2D contactFilter2D = new ContactFilter2D();
@@ -24,16 +28,13 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigidBody.freezeRotation = true;
         HorizontalMovement();
+        VerticalMovement();
         EnemyHit();
-        if (IsOnTheGround())
-        {
-            VerticalMovement();
-        }
     }
 
     void VerticalMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) && IsOnTheGround())
         {
             playerRigidBody.velocity = Vector2.up * jumpSpeed;
         }
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HorizontalMovement()
     {
-        if (Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Horizontal") == 1)
+        if ((Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Horizontal") == 1))
         {
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
@@ -51,14 +52,12 @@ public class PlayerMovement : MonoBehaviour
     bool IsOnTheGround()
     {
         //RaycastHit2D hit2 = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, 0.1f);
-        int hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
+        //int hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
 
-        if(hit > 1)
-        {
-            return true;
-        }
+        RaycastHit2D checkCollision = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, 0.1f, groundLayerMask);
+        
+        return checkCollision.collider != null;
 
-        return false;
     }
 
     bool EnemyHit()
