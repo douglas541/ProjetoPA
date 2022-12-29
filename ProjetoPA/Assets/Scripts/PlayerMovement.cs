@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public Rigidbody2D playerRigidBody;
-    public float movementSpeed = 5;
+    public Rigidbody2D enemyRigidBody;
+    public float movementSpeed = 6;
     private float jumpSpeed = 10;
+    List<RaycastHit2D> results = new List<RaycastHit2D>();
+    ContactFilter2D contactFilter2D = new ContactFilter2D();
+    bool enemyHit = false;
 
     void Start()
     {
@@ -17,11 +22,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerRigidBody.freezeRotation = true;
+        HorizontalMovement();
+        EnemyHit();
         if (IsOnTheGround())
         {
-            playerRigidBody.freezeRotation = true;
             VerticalMovement();
-            HorizontalMovement();
         }
     }
 
@@ -44,12 +50,36 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsOnTheGround()
     {
-        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        //RaycastHit2D hit2 = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, 0.1f);
+        int hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
 
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, 0.1f);
+        if(hit > 1)
+        {
+            return true;
+        }
 
-        Debug.Log(results.ToString());
+        return false;
+    }
 
-        return hit;
+    bool EnemyHit()
+    {
+        bool initialEnemyHit = enemyHit;
+        enemyHit = false;
+        int hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
+
+        results.ForEach(result =>
+        {
+            if (result.rigidbody == enemyRigidBody)
+            {
+                enemyHit = true;
+            }
+        });
+
+        if (initialEnemyHit != enemyHit)
+        {
+            Debug.Log(enemyHit);
+        }
+
+        return enemyHit;
     }
 }
