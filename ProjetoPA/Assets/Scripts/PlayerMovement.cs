@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRigidBody;
     [SerializeField] private CapsuleCollider2D playerCollider;
     [SerializeField] private Rigidbody2D enemyRigidBody;
+    [SerializeField] private Animator playerAnimation;
     private float movementSpeed = 6;
     private float jumpSpeed = 10;
     List<RaycastHit2D> results = new List<RaycastHit2D>();
@@ -37,15 +38,21 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround())
         {
             playerRigidBody.velocity = Vector2.up * jumpSpeed;
+            playerAnimation.SetBool("isRunning", false);
         }
     }
 
     void HorizontalMovement()
     {
+        if(Input.GetAxisRaw("Horizontal") == 0)
+        {
+            playerAnimation.SetBool("isRunning", false);
+        }
         if ((Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Horizontal") == 1))
         {
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
+            playerAnimation.SetBool("isRunning", true);
         }
     }
 
