@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void VerticalMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) && IsOnTheGround())
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround())
         {
             playerRigidBody.velocity = Vector2.up * jumpSpeed;
         }
@@ -57,14 +57,13 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D checkCollision = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, 0.1f, groundLayerMask);
         
         return checkCollision.collider != null;
-
     }
 
     bool EnemyHit()
     {
         bool initialEnemyHit = enemyHit;
         enemyHit = false;
-        int hit = Physics2D.BoxCast(transform.position, new Vector2(1.0f, 1.0f), 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
+        int hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
 
         results.ForEach(result =>
         {
