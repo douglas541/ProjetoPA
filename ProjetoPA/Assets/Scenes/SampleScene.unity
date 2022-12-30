@@ -488,6 +488,7 @@ MonoBehaviour:
   playerCollider: {fileID: 1236022760}
   enemyRigidBody: {fileID: 1825208700}
   playerAnimation: {fileID: 1236022756}
+  playerSprite: {fileID: 1236022754}
 --- !u!70 &1236022760
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

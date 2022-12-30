@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CapsuleCollider2D playerCollider;
     [SerializeField] private Rigidbody2D enemyRigidBody;
     [SerializeField] private Animator playerAnimation;
+    [SerializeField] private SpriteRenderer playerSprite;
     private float movementSpeed = 6;
     private float jumpSpeed = 10;
     List<RaycastHit2D> results = new List<RaycastHit2D>();
@@ -47,9 +48,19 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") == 0)
         {
             playerAnimation.SetBool("isRunning", false);
+            playerSprite.flipX = false;
         }
-        if ((Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Horizontal") == 1))
+        if (Input.GetAxisRaw("Horizontal") == -1)
         {
+            playerSprite.flipX = true;
+            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+            transform.position += movement * Time.deltaTime * movementSpeed;
+            playerAnimation.SetBool("isRunning", true);
+            
+        }
+        if (Input.GetAxisRaw("Horizontal") == 1)
+        {
+            playerSprite.flipX = false;
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
