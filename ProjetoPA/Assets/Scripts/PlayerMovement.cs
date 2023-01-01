@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.freezeRotation = true;
         HorizontalMovement();
         VerticalMovement();
-        EnemyHit();
+        //EnemyHit();
     }
 
     void VerticalMovement()
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         return checkCollision.collider != null;
     }
 
-    bool EnemyHit()
+    /*bool EnemyHit()
     {
         bool initialEnemyHit = enemyHit;
         enemyHit = false;
@@ -97,5 +97,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return enemyHit;
-    }
+    }*/
 }
