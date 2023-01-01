@@ -16,9 +16,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer playerSprite;
     private float movementSpeed = 6;
     private float jumpSpeed = 10;
-    List<RaycastHit2D> results = new List<RaycastHit2D>();
-    ContactFilter2D contactFilter2D = new ContactFilter2D();
-    bool enemyHit = false;
+    //List<RaycastHit2D> results = new List<RaycastHit2D>();
+    //ContactFilter2D contactFilter2D = new ContactFilter2D();
+    //bool enemyHit = false;
 
     void Start()
     {
