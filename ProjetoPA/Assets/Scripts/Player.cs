@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,5 +24,12 @@ public class Player : MonoBehaviour
     void Attack()
     {
         animator.SetTrigger("Attack");
+    }
+
+    public void EnemyHit(int enemyDamage)
+    {
+        health = health + enemyDamage;
+        var debugMessage = health <= 0 ? "You lost" : $"{health}";
+        Debug.Log(debugMessage);
     }
 }
