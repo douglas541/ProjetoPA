@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     private void EnemyHit()
     {
+        Vector2 enemySize = new Vector2() { x = 0.5f, y = 0.1f };
         int hitCount = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, contactFilter2D, results, 1f);
         bool wasHit = results.Any(result => result.rigidbody == enemyRigidBody);
 
