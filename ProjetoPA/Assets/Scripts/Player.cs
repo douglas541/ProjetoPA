@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     void Attack()
     {
         animator.SetTrigger("Attack");
+
     }
 
     public void EnemyHit(int enemyDamage)
