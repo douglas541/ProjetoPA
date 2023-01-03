@@ -719,3 +719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83411ea2944655b4e951fcd29bf459b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCollider: {fileID: 1236022760}
+  enemyRigidBody: {fileID: 1825208700}
+  playerGameObject: {fileID: 1236022753}
