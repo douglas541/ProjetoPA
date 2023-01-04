@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1825208704}
+  playerMovement: {fileID: 0}
   health: 10
   attackHitbox: {fileID: 1809878114}
 --- !u!1 &1645710232

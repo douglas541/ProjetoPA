@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Enemy enemy;
+    public PlayerMovement playerMovement;
     public int health = 10;
     private int playerAttackDamage = 5;
     private Animator animator;

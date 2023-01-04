@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetAxisRaw("Horizontal") == -1)
         {
-            playerSprite.flipX = true;
+            transform.localScale = new Vector3(-4.5727f, 4.5727f, 4.5727f);
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
-            playerSprite.flipX = false;
+            transform.localScale = new Vector3(4.5727f, 4.5727f, 4.5727f);
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
