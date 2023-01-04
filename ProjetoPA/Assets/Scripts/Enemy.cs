@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -22,25 +23,20 @@ public class Enemy : MonoBehaviour
         EnemyHit();
     }
 
-    bool EnemyHit()
+    private void EnemyHit()
     {
-        bool initialEnemyHit = enemyHit;
-        enemyHit = false;
-        int hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0.0f, Vector2.down, contactFilter2D, results, 1.0f);
+        Vector2 enemySize = new Vector2() { x = 0.5f, y = 0.1f };
+        int hitCount = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, contactFilter2D, results, 1f);
+        bool wasHit = results.Any(result => result.rigidbody == enemyRigidBody);
 
-        results.ForEach(result =>
+        if (wasHit && !enemyHit)
         {
-            if (result.rigidbody == enemyRigidBody)
-            {
-                enemyHit = true;
-            }
-        });
-
-        if (initialEnemyHit != enemyHit && enemyHit == true)
-        {
+            enemyHit = true;
             playerGameObject.SendMessage("EnemyHit", enemyDamage);
         }
-
-        return enemyHit;
+        else if (!wasHit)
+        {
+            enemyHit = false;
+        }
     }
 }

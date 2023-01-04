@@ -62,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit2D checkCollision = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, 0.1f, groundLayerMask);
 
-        return checkCollision.collider != null;
+        if (checkCollision.collider != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
