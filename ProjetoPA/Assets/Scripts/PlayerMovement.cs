@@ -29,32 +29,43 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround())
         {
-            playerRigidBody.velocity = Vector2.up * jumpSpeed;
             playerAnimation.SetBool("isRunning", false);
+            playerAnimation.SetBool("isCrouching", false);
+            playerRigidBody.velocity = Vector2.up * jumpSpeed;
         }
+
+        Crouch();
     }
 
     void HorizontalMovement()
     {
-        if (Input.GetAxisRaw("Horizontal") == 0)
+        //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
+        if(!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround())
         {
-            playerAnimation.SetBool("isRunning", false);
+            playerAnimation.SetBool("isCrouching", false);
+            if (Input.GetAxisRaw("Horizontal") == 0)
+            {
+                playerAnimation.SetBool("isCrouching", false);
+                playerAnimation.SetBool("isRunning", false);
+            }
+            if (Input.GetAxisRaw("Horizontal") == -1)
+            {
+                transform.localScale = new Vector3(-4.5727f, 4.5727f, 4.5727f);
+                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+                transform.position += movement * Time.deltaTime * movementSpeed;
+                playerAnimation.SetBool("isRunning", true);
+            }
+            if (Input.GetAxisRaw("Horizontal") == 1)
+            {
+                transform.localScale = new Vector3(4.5727f, 4.5727f, 4.5727f);
+                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+                transform.position += movement * Time.deltaTime * movementSpeed;
+                playerAnimation.SetBool("isRunning", true);
+            }
         }
-        if (Input.GetAxisRaw("Horizontal") == -1)
-        {
-            transform.localScale = new Vector3(-4.5727f, 4.5727f, 4.5727f);
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-            transform.position += movement * Time.deltaTime * movementSpeed;
-            playerAnimation.SetBool("isRunning", true);
 
-        }
-        if (Input.GetAxisRaw("Horizontal") == 1)
-        {
-            transform.localScale = new Vector3(4.5727f, 4.5727f, 4.5727f);
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-            transform.position += movement * Time.deltaTime * movementSpeed;
-            playerAnimation.SetBool("isRunning", true);
-        }
+        AirMovement();
+        
     }
 
     bool IsOnTheGround()
@@ -67,5 +78,43 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return false;
+    }
+
+    void Crouch()
+    {
+        if(playerAnimation.GetBool("isRunning") == true && playerAnimation.GetBool("isCrouching") == true) {
+            playerAnimation.SetBool("isRunning", false);
+        }
+
+        if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && IsOnTheGround()) {
+            playerAnimation.SetBool("isCrouching", true);
+        }
+    }
+
+    void AirMovement()
+    {
+        if (IsOnTheGround() == false)
+        {
+            playerAnimation.SetBool("isCrouching", false);
+            if (Input.GetAxisRaw("Horizontal") == 0)
+            {
+                playerAnimation.SetBool("isCrouching", false);
+                playerAnimation.SetBool("isRunning", false);
+            }
+            if (Input.GetAxisRaw("Horizontal") == -1)
+            {
+                transform.localScale = new Vector3(-4.5727f, 4.5727f, 4.5727f);
+                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+                transform.position += movement * Time.deltaTime * movementSpeed;
+                playerAnimation.SetBool("isRunning", true);
+            }
+            if (Input.GetAxisRaw("Horizontal") == 1)
+            {
+                transform.localScale = new Vector3(4.5727f, 4.5727f, 4.5727f);
+                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+                transform.position += movement * Time.deltaTime * movementSpeed;
+                playerAnimation.SetBool("isRunning", true);
+            }
+        }
     }
 }
