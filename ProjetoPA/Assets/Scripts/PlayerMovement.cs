@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
             playerAnimation.SetBool("isRunning", false);
-            playerSprite.flipX = false;
         }
         if (Input.GetAxisRaw("Horizontal") == -1)
         {
