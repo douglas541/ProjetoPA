@@ -327,7 +327,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.74, y: -0.03}
+  m_Offset: {x: -5.14, y: 0.06}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -338,7 +338,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06, y: 2.42}
+  m_Size: {x: 0.67, y: 3.19}
   m_EdgeRadius: 0
 --- !u!1 &1236022753
 GameObject:
@@ -519,7 +519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172e5da719b65f441b2cd79adf7bcb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 1825208704}
   health: 10
+  attackHitbox: {fileID: 1809878114}
 --- !u!1 &1645710232
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +618,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.01, y: 0.02}
@@ -645,7 +647,7 @@ GameObject:
   - component: {fileID: 1825208701}
   - component: {fileID: 1825208700}
   - component: {fileID: 1825208704}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

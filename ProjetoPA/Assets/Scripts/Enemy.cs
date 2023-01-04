@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     ContactFilter2D contactFilter2D = new ContactFilter2D();
     bool enemyHit = false;
     private int enemyDamage = -1;
+    private int enemyHealth = 25;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +40,15 @@ public class Enemy : MonoBehaviour
         {
             enemyHit = false;
         }
+    }
+
+    public void SetEnemyHealth(int attackDamage)
+    {
+        enemyHealth -= attackDamage;
+    }
+
+    public int GetEnemyHealth()
+    {
+        return enemyHealth;
     }
 }
