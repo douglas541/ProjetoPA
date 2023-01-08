@@ -85,14 +85,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == -1)
         {
             transform.localScale = new Vector3(-spriteSize, spriteSize, spriteSize);
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+            Vector3 movement = new Vector3(-1f, 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
         }
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
             transform.localScale = new Vector3(spriteSize, spriteSize, spriteSize);
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+            Vector3 movement = new Vector3(1f, 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
         }
