@@ -41,14 +41,10 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMovement()
     {
         //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
-        if(!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround())
+        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) || IsOnTheGround() == false)
         {
-            HorizontalInput();
+            HandleHorizontalMovement();
         }
-        if (IsOnTheGround() == false)
-        {
-            HorizontalInput();
-        }      
     }
 
     bool IsOnTheGround()
@@ -65,34 +61,31 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        if(playerAnimation.GetBool("isRunning") == true && playerAnimation.GetBool("isCrouching") == true) {
+        if (playerAnimation.GetBool("isRunning") == true && playerAnimation.GetBool("isCrouching") == true)
+        {
             playerAnimation.SetBool("isRunning", false);
         }
 
-        if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && IsOnTheGround()) {
+        if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && IsOnTheGround())
+        {
             playerAnimation.SetBool("isCrouching", true);
         }
     }
 
-    void HorizontalInput()
+    void HandleHorizontalMovement()
     {
         playerAnimation.SetBool("isCrouching", false);
-        if (Input.GetAxisRaw("Horizontal") == 0)
+
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (horizontalInput == 0)
         {
             playerAnimation.SetBool("isCrouching", false);
             playerAnimation.SetBool("isRunning", false);
         }
-        if (Input.GetAxisRaw("Horizontal") == -1)
+        else
         {
-            transform.localScale = new Vector3(-spriteSize, spriteSize, spriteSize);
-            Vector3 movement = new Vector3(-1f, 0f, 0f);
-            transform.position += movement * Time.deltaTime * movementSpeed;
-            playerAnimation.SetBool("isRunning", true);
-        }
-        if (Input.GetAxisRaw("Horizontal") == 1)
-        {
-            transform.localScale = new Vector3(spriteSize, spriteSize, spriteSize);
-            Vector3 movement = new Vector3(1f, 0f, 0f);
+            transform.localScale = new Vector3(horizontalInput * spriteSize, spriteSize, spriteSize);
+            Vector3 movement = new Vector3(horizontalInput, 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             playerAnimation.SetBool("isRunning", true);
         }
