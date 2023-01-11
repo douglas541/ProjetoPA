@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     public PlayerMovement playerMovement;
     public int health = 10;
     private int playerAttackDamage = 5;
+    private float attackCooldown;
+    private float timerOfNextAttack = 0.4f;
     private Animator animator;
     [SerializeField] Collider2D attackHitbox;
 
@@ -33,9 +35,13 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        animator.SetTrigger("Attack");
+        if (Time.time > attackCooldown)
+        {
+            attackCooldown = timerOfNextAttack + Time.time;
 
-        OnTriggerEnter2D(attackHitbox);
+            animator.SetTrigger("Attack");
+            OnTriggerEnter2D(attackHitbox);
+        }
     }
 
     public void EnemyHit(int enemyDamage)
