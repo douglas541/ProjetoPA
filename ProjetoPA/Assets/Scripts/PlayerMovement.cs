@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float movementSpeed = 6;
     private float jumpSpeed = 10;
     private float spriteSize = 4.5727f;
+    private bool canMove = true;
 
     void Start()
     {
@@ -26,9 +27,19 @@ public class PlayerMovement : MonoBehaviour
         VerticalMovement();
     }
 
+    public bool GetPlayerCanMove()
+    {
+        return this.canMove;
+    }
+
+    public void SetPlayerCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+    } 
+
     void VerticalMovement()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround())
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround() && canMove)
         {
             playerAnimation.SetBool("isRunning", false);
             playerAnimation.SetBool("isCrouching", false);
@@ -41,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMovement()
     {
         //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
-        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) || IsOnTheGround() == false)
+        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) && canMove || IsOnTheGround() == false)
         {
             HandleHorizontalMovement();
         }

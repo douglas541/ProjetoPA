@@ -25,7 +25,10 @@ public class Player : MonoBehaviour
         {
             Attack();
         }
-
+        else if(Time.time > attackCooldown)
+        {
+            playerMovement.SetPlayerCanMove(true);
+        }
         if (enemy.GetEnemyHealth() == 0)
         {
             enemy.gameObject.SetActive(false);
@@ -37,8 +40,8 @@ public class Player : MonoBehaviour
     {
         if (Time.time > attackCooldown)
         {
+            playerMovement.SetPlayerCanMove(false);
             attackCooldown = timerOfNextAttack + Time.time;
-
             animator.SetTrigger("Attack");
             OnTriggerEnter2D(attackHitbox);
         }
