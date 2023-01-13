@@ -10,8 +10,8 @@ public class Enemy : MonoBehaviour
     List<RaycastHit2D> results = new List<RaycastHit2D>();
     ContactFilter2D contactFilter2D = new ContactFilter2D();
     bool enemyHit = false;
-    private int enemyDamage = 1;
-    private int enemyHealth = 25;
+    private int _enemyDamage = 1;
+    private int _enemyHealth = 25;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         if (wasHit && !enemyHit)
         {
             enemyHit = true;
-            playerGameObject.SendMessage("EnemyHit", -enemyDamage);
+            playerGameObject.SendMessage("EnemyHit", -_enemyDamage); 
         }
         else if (!wasHit)
         {
@@ -44,11 +44,11 @@ public class Enemy : MonoBehaviour
 
     public void SetEnemyHealth(int attackDamage)
     {
-        enemyHealth -= attackDamage;
+        _enemyHealth -= attackDamage;
     }
 
     public int GetEnemyHealth()
     {
-        return enemyHealth;
+        return _enemyHealth;
     }
 }

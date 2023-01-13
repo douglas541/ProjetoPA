@@ -9,10 +9,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D enemyRigidBody;
     [SerializeField] private Animator playerAnimation;
     [SerializeField] private SpriteRenderer playerSprite;
-    private float movementSpeed = 6;
-    private float jumpSpeed = 10;
-    private float spriteSize = 4.5727f;
-    private bool canMove = true;
+    private float _movementSpeed = 6;
+    private float _jumpSpeed = 10;
+    private float _spriteSize = 4.5727f;
+    private bool _canMove = true;
 
     void Start()
     {
@@ -29,21 +29,21 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetPlayerCanMove()
     {
-        return this.canMove;
+        return this._canMove;
     }
 
     public void SetPlayerCanMove(bool canMove)
     {
-        this.canMove = canMove;
+        this._canMove = canMove;
     } 
 
     void VerticalMovement()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround() && canMove)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround() && _canMove)
         {
             playerAnimation.SetBool("isRunning", false);
             playerAnimation.SetBool("isCrouching", false);
-            playerRigidBody.velocity = Vector2.up * jumpSpeed;
+            playerRigidBody.velocity = Vector2.up * _jumpSpeed;
         }
 
         Crouch();
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMovement()
     {
         //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
-        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) && canMove || IsOnTheGround() == false)
+        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) && _canMove || IsOnTheGround() == false)
         {
             HandleHorizontalMovement();
         }
@@ -95,9 +95,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            transform.localScale = new Vector3(horizontalInput * spriteSize, spriteSize, spriteSize);
+            transform.localScale = new Vector3(horizontalInput * _spriteSize, _spriteSize, _spriteSize);
             Vector3 movement = new Vector3(horizontalInput, 0f, 0f);
-            transform.position += movement * Time.deltaTime * movementSpeed;
+            transform.position += movement * Time.deltaTime * _movementSpeed;
             playerAnimation.SetBool("isRunning", true);
         }
     }

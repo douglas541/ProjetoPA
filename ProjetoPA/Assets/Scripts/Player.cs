@@ -5,16 +5,16 @@ public class Player : MonoBehaviour
     public Enemy enemy;
     public PlayerMovement playerMovement;
     public int health = 10;
-    private int playerAttackDamage = 5;
-    private float attackCooldown;
-    private float timerOfNextAttack = 0.4f;
-    private Animator animator;
+    private int _playerAttackDamage = 5;
+    private float _gameTimeForNextAttack;
+    private float _attackDelayInSeconds = 0.4f;
+    private Animator _animator;
     [SerializeField] Collider2D attackHitbox;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         attackHitbox = GetComponent<Collider2D>();
     }
 
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         {
             Attack();
         }
-        else if(Time.time > attackCooldown)
+        if (AttackHasEnded())
         {
             playerMovement.SetPlayerCanMove(true);
         }
@@ -33,18 +33,32 @@ public class Player : MonoBehaviour
         {
             enemy.gameObject.SetActive(false);
         }
-
     }
 
     void Attack()
     {
-        if (Time.time > attackCooldown)
+        if (AttackHasEnded())
         {
-            playerMovement.SetPlayerCanMove(false);
-            attackCooldown = timerOfNextAttack + Time.time;
-            animator.SetTrigger("Attack");
-            OnTriggerEnter2D(attackHitbox);
+            HandleAttack();  
         }
+    }
+
+    bool AttackHasEnded()
+    {
+        if(Time.time > _gameTimeForNextAttack)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void HandleAttack()
+    {
+        playerMovement.SetPlayerCanMove(false);
+        _gameTimeForNextAttack = _attackDelayInSeconds + Time.time;
+        _animator.SetTrigger("Attack");
+        OnTriggerEnter2D(attackHitbox);
     }
 
     public void EnemyHit(int enemyDamage)
@@ -59,7 +73,7 @@ public class Player : MonoBehaviour
         var layerMask = collision.gameObject.layer;
         if (layerMask == 10)
         {
-            enemy.SetEnemyHealth(playerAttackDamage);
+            enemy.SetEnemyHealth(_playerAttackDamage);
             Debug.Log(enemy.GetEnemyHealth());
         }
     }
