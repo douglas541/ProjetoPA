@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
             enemy.gameObject.SetActive(false);
         }
     }
-
+    
     void Attack()
     {
         if (AttackHasEnded())

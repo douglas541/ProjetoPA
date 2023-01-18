@@ -79,18 +79,22 @@ public class PlayerMovement : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && IsOnTheGround())
         {
-            playerAnimation.SetBool("isCrouching", true);
+            if (!(playerAnimation.GetBool("isCrouching")))
+            {
+                playerAnimation.SetBool("isCrouching", true);
+            }
+        }
+        else
+        {
+            playerAnimation.SetBool("isCrouching", false);
         }
     }
 
     void HandleHorizontalMovement()
     {
-        playerAnimation.SetBool("isCrouching", false);
-
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         if (horizontalInput == 0)
         {
-            playerAnimation.SetBool("isCrouching", false);
             playerAnimation.SetBool("isRunning", false);
         }
         else
