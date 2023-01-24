@@ -39,20 +39,31 @@ public class PlayerMovement : MonoBehaviour
 
     void VerticalMovement()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && IsOnTheGround() && _canMove)
+        if(Input.GetAxisRaw("Jump") > 0 && IsOnTheGround() && _canMove)
         {
-            playerAnimation.SetBool("isRunning", false);
-            playerAnimation.SetBool("isCrouching", false);
-            playerRigidBody.velocity = Vector2.up * _jumpSpeed;
+            Jump();
         }
+        if(Input.GetAxisRaw("Crouch") < 0 && IsOnTheGround())
+        {
+            Crouch();
+        }
+        else
+        {
+            playerAnimation.SetBool("isCrouching", false);
+        }
+    }
 
-        Crouch();
+    void Jump()
+    {
+        playerAnimation.SetBool("isRunning", false);
+        playerAnimation.SetBool("isCrouching", false);
+        playerRigidBody.velocity = Vector2.up * _jumpSpeed;
     }
 
     void HorizontalMovement()
     {
         //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
-        if ((!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround()) && _canMove || IsOnTheGround() == false)
+        if (!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround() && _canMove || IsOnTheGround() == false)
         {
             HandleHorizontalMovement();
         }
@@ -72,23 +83,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        if (playerAnimation.GetBool("isRunning") == true && playerAnimation.GetBool("isCrouching") == true)
-        {
-            playerAnimation.SetBool("isRunning", false);
-        }
-
-        if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && IsOnTheGround())
-        {
-            if (!(playerAnimation.GetBool("isCrouching")))
-            {
-                playerAnimation.SetBool("isCrouching", true);
-            }
-        }
-        else
-        {
-            playerAnimation.SetBool("isCrouching", false);
-        }
+        playerAnimation.SetBool("isCrouching", true);
     }
+
 
     void HandleHorizontalMovement()
     {

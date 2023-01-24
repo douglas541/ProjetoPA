@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.H))
+        if (Input.GetAxisRaw("Grounded Attack") > 0)
         {
             Attack();
         }
