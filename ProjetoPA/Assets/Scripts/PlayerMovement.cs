@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMovement()
     {
         //The following conditions detects if the program has any low diagonal input. If not, it will proceed.
-        if (!(Input.GetKey(KeyCode.S)) && !(Input.GetKey(KeyCode.DownArrow)) && IsOnTheGround() && _canMove || IsOnTheGround() == false)
+        if (!(Input.GetAxisRaw("Crouch") < 0) && IsOnTheGround() && _canMove || IsOnTheGround() == false)
         {
             HandleHorizontalMovement();
         }
