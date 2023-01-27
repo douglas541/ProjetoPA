@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.freezeRotation = true;
         HorizontalMovement();
         VerticalMovement();
+        playerAnimation.SetFloat("yVelocity", playerRigidBody.velocity.y);
     }
 
     public bool GetPlayerCanMove()
@@ -39,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     void VerticalMovement()
     {
+        if (playerRigidBody.velocity.y < 0 && IsOnTheGround() == false)
+        {
+            playerRigidBody.velocity = Vector2.down * 6.5f;
+        }
         if(Input.GetAxisRaw("Jump") > 0 && IsOnTheGround() && _canMove)
         {
             Jump();
@@ -58,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.SetBool("isRunning", false);
         playerAnimation.SetBool("isCrouching", false);
         playerRigidBody.velocity = Vector2.up * _jumpSpeed;
+        playerAnimation.SetBool("isJumping", true);
     }
 
     void HorizontalMovement()
@@ -75,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (checkCollision.collider != null)
         {
+            playerAnimation.SetBool("isJumping", false);
             return true;
         }
 
@@ -85,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnimation.SetBool("isCrouching", true);
     }
-
 
     void HandleHorizontalMovement()
     {
