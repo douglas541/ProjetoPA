@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Grounded Attack") > 0)
+        if (Input.GetAxisRaw("Attack") > 0)
         {
             Attack();
         }
