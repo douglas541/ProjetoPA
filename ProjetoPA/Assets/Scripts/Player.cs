@@ -10,12 +10,14 @@ public class Player : MonoBehaviour
     private float _attackDelayInSeconds = 0.4f;
     private Animator _animator;
     [SerializeField] Collider2D attackHitbox;
+    [SerializeField] Collider2D airAttackHitbox;
 
     // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponent<Animator>();
         attackHitbox = GetComponent<Collider2D>();
+        airAttackHitbox = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
         {
             Attack();
         }
+        
         if (AttackHasEnded())
         {
             playerMovement.SetPlayerCanMove(true);
@@ -41,6 +44,12 @@ public class Player : MonoBehaviour
         {
             HandleAttack();  
         }
+    }
+
+    void AirAttack()
+    {
+        _animator.SetTrigger("Air Attack");
+        OnTriggerEnter2D(airAttackHitbox);
     }
 
     bool AttackHasEnded()
